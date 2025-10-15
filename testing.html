@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hospital Scheduler Mockup</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0; padding: 0;
+      background: #f5f5f5;
+    }
+
+    /* Navbar with role toggle */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #2d3748;
+      color: white;
+      padding: 1rem;
+    }
+    .role-toggle {
+      background: #4a5568;
+      border: none;
+      padding: 0.5rem 1rem;
+      color: white;
+      cursor: pointer;
+    }
+
+    /* Home: Doctor Cards Grid */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+      padding: 1rem;
+    }
+    .doctor-card {
+      background: white;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      cursor: pointer;
+    }
+    .doctor-card h3 {
+      margin: 0 0 0.5rem 0;
+    }
+    .doctor-card p {
+      margin: 0.2rem 0;
+      font-size: 0.9rem;
+      color: #555;
+    }
+
+    /* Schedule Page */
+    .schedule-header {
+      background: white;
+      padding: 1rem;
+      border-bottom: 1px solid #ddd;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .view-toggle button {
+      margin-left: 0.5rem;
+      padding: 0.4rem 0.8rem;
+      cursor: pointer;
+    }
+
+    /* Week View Grid */
+    .week-view {
+      display: grid;
+      grid-template-columns: 80px repeat(7, 1fr);
+      background: white;
+      margin: 1rem;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .week-view .cell {
+      border: 1px solid #ddd;
+      min-height: 50px;
+      padding: 2px;
+      font-size: 0.8rem;
+    }
+    .week-view .time-cell {
+      background: #f0f0f0;
+      font-weight: bold;
+    }
+    .appointment {
+      background: #3b82f6; /* blue for checkup */
+      color: white;
+      padding: 2px 4px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      margin: 1px 0;
+    }
+
+    /* Day View Timeline */
+    .day-view {
+      margin: 1rem;
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+      padding: 1rem;
+    }
+    .time-slot {
+      display: flex;
+      border-bottom: 1px solid #eee;
+      min-height: 40px;
+      align-items: center;
+    }
+    .time-label {
+      width: 80px;
+      font-weight: bold;
+      color: #555;
+    }
+    .slot-content {
+      flex: 1;
+      position: relative;
+    }
+    .slot-appointment {
+      background: #10b981; /* green for consultation */
+      color: white;
+      padding: 4px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <div class="navbar">
+    <div>Hospital Scheduler</div>
+    <button class="role-toggle">Switch Role: Front Desk / Doctor</button>
+  </div>
+
+  <!-- Home Page: Doctor Cards -->
+  <div class="cards-grid">
+    <div class="doctor-card">
+      <h3>Dr. Sarah Chen</h3>
+      <p>Cardiology</p>
+      <p>Working Hours: 8 AM - 4 PM</p>
+    </div>
+    <div class="doctor-card">
+      <h3>Dr. John Smith</h3>
+      <p>Dermatology</p>
+      <p>Working Hours: 9 AM - 5 PM</p>
+    </div>
+    <div class="doctor-card">
+      <h3>Dr. Emily Davis</h3>
+      <p>Pediatrics</p>
+      <p>Working Hours: 10 AM - 6 PM</p>
+    </div>
+  </div>
+
+  <!-- Schedule Page -->
+  <div class="schedule-header">
+    <div>
+      <h2>Dr. Sarah Chen - Cardiology</h2>
+      <p>Working Hours: 8 AM - 4 PM</p>
+    </div>
+    <div class="view-toggle">
+      <button>Day View</button>
+      <button>Week View</button>
+    </div>
+  </div>
+
+  <!-- Week View Example -->
+  <div class="week-view">
+    <div class="cell time-cell"></div>
+    <div class="cell">Mon</div>
+    <div class="cell">Tue</div>
+    <div class="cell">Wed</div>
+    <div class="cell">Thu</div>
+    <div class="cell">Fri</div>
+    <div class="cell">Sat</div>
+    <div class="cell">Sun</div>
+
+    <div class="cell time-cell">08:00</div>
+    <div class="cell"><div class="appointment">John Doe - Checkup</div></div>
+    <div class="cell"></div>
+    <div class="cell"></div>
+    <div class="cell"></div>
+    <div class="cell"></div>
+    <div class="cell"></div>
+    <div class="cell"></div>
+
+    <div class="cell time-cell">09:00</div>
+    <div class="cell"></div>
+    <div class="cell"><div class="appointment">Jane Smith - Consultation</div></div>
+    <div class="cell"></div>
+    <div class="cell"></div>
+    <div class="cell"></div>
+    <div class="cell"></div>
+    <div class="cell"></div>
+
+    <!-- Add more time rows as needed -->
+  </div>
+
+  <!-- Day View Example -->
+  <div class="day-view">
+    <div class="time-slot">
+      <div class="time-label">08:00</div>
+      <div class="slot-content"></div>
+    </div>
+    <div class="time-slot">
+      <div class="time-label">08:30</div>
+      <div class="slot-content">
+        <div class="slot-appointment">John Doe - Checkup (30min)</div>
+      </div>
+    </div>
+    <div class="time-slot">
+      <div class="time-label">09:00</div>
+      <div class="slot-content"></div>
+    </div>
+    <div class="time-slot">
+      <div class="time-label">09:30</div>
+      <div class="slot-content"></div>
+    </div>
+    <div class="time-slot">
+      <div class="time-label">10:00</div>
+      <div class="slot-content">
+        <div class="slot-appointment">Jane Smith - Consultation (60min)</div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

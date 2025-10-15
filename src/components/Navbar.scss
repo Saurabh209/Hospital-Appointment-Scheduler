@@ -1,0 +1,29 @@
+.navbar {
+  background: linear-gradient(90deg, #0077b6, #00b4d8);
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+
+  &__logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+
+  &__links {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+
+    li {
+      cursor: pointer;
+      font-weight: 500;
+      transition: color 0.3s;
+
+      &:hover {
+        color: #caf0f8;
+      }
+    }
+  }
+}

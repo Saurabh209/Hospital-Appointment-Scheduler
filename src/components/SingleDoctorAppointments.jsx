@@ -1,132 +1,83 @@
-import React, { useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import data from "../data/hospitalData.json";
 import "./SingleDoctorAppointments.scss";
+import Calander from "./Calander";
 
 const SingleDoctorAppointments = () => {
   const { name } = useParams();
+  const navigate = useNavigate();
   const [view, setView] = useState("week"); // "day" or "week"
+  const [currentTime, setCurrentTime] = useState(new Date());
 
-  const doctorData = {
-    name: decodeURIComponent(name),
-    specialty: "Cardiologist",
-    experience: "10 years",
-    image: "https://cdn-icons-png.flaticon.com/512/4140/4140048.png",
+  // Find doctor from JSON by URL param
+
+  const decodedName = decodeURIComponent(name);
+  console.log(decodedName)
+
+  const doctor = data.doctors.find(
+    (doc) => doc.name.toLowerCase() === decodedName.toLowerCase()
+  );
+
+  // Update current time every minute (for the red line)
+  useEffect(() => {
+    const timer = setInterval(() => setCurrentTime(new Date()), 60000);
+    return () => clearInterval(timer);
+  }, []);
+
+  if (!doctor) return <p>Doctor not found 😢</p>;
+
+  // Time slots
+  const timeSlots = [];
+  for (let h = 8; h <= 18; h++) {
+    timeSlots.push(`${h}:00`);
+  }
+
+  // Calculate current time position for the red line (in percentage)
+  const getTimePosition = () => {
+    const totalMinutes = (18 - 8) * 60;
+    const nowMinutes = currentTime.getHours() * 60 + currentTime.getMinutes() - 8 * 60;
+    return (nowMinutes / totalMinutes) * 100;
   };
 
-  const appointments = [
-    { day: "Monday", time: "10:00", patient: "Aman Sharma" },
-    { day: "Monday", time: "14:00", patient: "Riya Das" },
-    { day: "Tuesday", time: "11:00", patient: "Rahul Mehta" },
-    { day: "Wednesday", time: "09:00", patient: "Kunal Singh" },
-    { day: "Friday", time: "16:00", patient: "Meera Joshi" },
-  ];
-
-  const daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
-  const timeSlots = Array.from({ length: 12 }, (_, i) => `${i + 8}:00`); // 8AM - 8PM
-
-  const getAppointment = (day, time) =>
-    appointments.find((a) => a.day === day && a.time === time);
-
   return (
-    <div className="doctor-page">
-      {/* Doctor Info Card */}
-      <div className="doctor-profile">
-        <div className="doctor-info">
-          <img src={doctorData.image} alt={doctorData.name} />
+    <div className="doctor-appointments">
+      <div className="doctor-header">
+        <div className="doctor-info-card">
+          <div className="doctor-avatar">
+            <img
+              src={doctor.image || "https://cdn-icons-png.flaticon.com/512/4140/4140048.png"}
+              alt={doctor.name}
+            />
+          </div>
           <div className="doctor-details">
-            <h2>{doctorData.name}</h2>
-            <p>{doctorData.specialty}</p>
-            <p>Experience: {doctorData.experience}</p>
+            <h2>{doctor.name}</h2>
+            <div className="specialty">{doctor.specialty}</div>
+            <div className="working-hours">
+              <strong>Working Hours:</strong> {doctor.workingHours}
+            </div>
+            <div className="contact-info">
+              <span><strong>Email:</strong> {doctor.email || "doctor@hospital.com"}</span>
+              <span><strong>Phone:</strong> {doctor.phone || "+91 98765 43210"}</span>
+            </div>
+            <div className="appointments-summary">
+              <span>Total Appointments: {doctor.appointments.length}</span>
+              <span>Next Patient: {doctor.appointments[0]?.patientName || "N/A"}</span>
+            </div>
+            <button className="back-btn" onClick={() => navigate("/")}>
+              ← Back to Dashboard
+            </button>
           </div>
         </div>
 
-        <div className="profile-actions">
-          <Link to="/" className="back-btn">
-            ← Back to Dashboard
-          </Link>
-          <button className="add-btn">+ Add Appointment</button>
-        </div>
-      </div>
 
-      {/* View Toggle */}
-      <div className="view-toggle">
-        <button
-          className={view === "day" ? "active" : ""}
-          onClick={() => setView("day")}
-        >
-          Day View
-        </button>
-        <button
-          className={view === "week" ? "active" : ""}
-          onClick={() => setView("week")}
-        >
-          Week View
-        </button>
       </div>
+      {console.log(doctor.name,"doctor")}
+      <Calander DctrName={doctor.name} appointments= {doctor.appointments} />
 
-      {/* Schedule Table */}
-      <div className="schedule-container">
-        {view === "week" ? (
-          <table className="schedule-table">
-            <thead>
-              <tr>
-                <th>Time</th>
-                {daysOfWeek.map((day) => (
-                  <th key={day}>{day}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {timeSlots.map((time) => (
-                <tr key={time}>
-                  <td className="time-slot">{time}</td>
-                  {daysOfWeek.map((day) => {
-                    const appointment = getAppointment(day, time);
-                    return (
-                      <td key={day + time}>
-                        {appointment ? (
-                          <div className="appointment">
-                            <strong>{appointment.patient}</strong>
-                            <p>{appointment.time}</p>
-                          </div>
-                        ) : (
-                          <div className="empty-slot">—</div>
-                        )}
-                      </td>
-                    );
-                  })}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        ) : (
-          <table className="schedule-table day-view">
-            <thead>
-              <tr>
-                <th>Time</th>
-                <th>Patient</th>
-              </tr>
-            </thead>
-            <tbody>
-              {timeSlots.map((time) => {
-                const appointment = appointments.find((a) => a.day === "Monday" && a.time === time);
-                return (
-                  <tr key={time}>
-                    <td>{time}</td>
-                    <td>
-                      {appointment ? (
-                        <strong>{appointment.patient}</strong>
-                      ) : (
-                        <span className="empty-slot">—</span>
-                      )}
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        )}
-      </div>
+
+
+
     </div>
   );
 };

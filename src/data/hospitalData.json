@@ -1,0 +1,143 @@
+{
+  "frontDesk": {
+    "name": "Priya Sharma",
+    "role": "Front Desk Staff",
+    "email": "priya.sharma@hospitalcare.com",
+    "contact": "+91 98765 43210",
+    "shift": "Morning (8 AM - 4 PM)"
+  },
+  "doctors": [
+    {
+      "id": 1,
+      "name": "Dr. Sarah Chen",
+      "specialty": "Cardiology",
+      "image": "https://cdn-icons-png.flaticon.com/512/4140/4140048.png",
+      "workingHours": "8 AM - 4 PM",
+      "appointments": [
+        {
+          "id": 101,
+          "patientName": "Rahul Verma",
+          "type": "Checkup",
+          "startTime": "2025-10-13T09:00:00",
+          "endTime": "2025-10-13T09:30:00",
+          "status": "Confirmed"
+        },
+        {
+          "id": 102,
+          "patientName": "Neha Kapoor",
+          "type": "Consultation",
+          "startTime": "2025-10-13T11:00:00",
+          "endTime": "2025-10-13T11:30:00",
+          "status": "Pending"
+        },
+        {
+          "id": 103,
+          "patientName": "Amit Yadav",
+          "type": "Follow-up",
+          "startTime": "2025-10-15T14:00:00",
+          "endTime": "2025-10-15T14:30:00",
+          "status": "Completed"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Dr. John Smith",
+      "image": "https://cdn-icons-png.flaticon.com/512/921/921124.png",
+      "specialty": "Dermatology",
+      "workingHours": "9 AM - 5 PM",
+      "appointments": [
+        {
+          "id": 201,
+          "patientName": "Sneha Patel",
+          "type": "Checkup",
+          "startTime": "2025-10-14T10:00:00",
+          "endTime": "2025-10-14T10:30:00",
+          "status": "Confirmed"
+        },
+        {
+          "id": 202,
+          "patientName": "Rohan Singh",
+          "type": "Consultation",
+          "startTime": "2025-10-16T13:00:00",
+          "endTime": "2025-10-16T13:30:00",
+          "status": "Cancelled"
+        },
+        {
+          "id": 203,
+          "patientName": "Vikram Sharma",
+          "type": "Follow-up",
+          "startTime": "2025-10-17T15:00:00",
+          "endTime": "2025-10-17T15:30:00",
+          "status": "Pending"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Dr. Emily Davis",
+      "specialty": "Pediatrics",
+      "image": "https://cdn-icons-png.flaticon.com/512/2922/2922561.png",
+      "workingHours": "10 AM - 6 PM",
+      "appointments": [
+        {
+          "id": 301,
+          "patientName": "Kabir Malhotra",
+          "type": "Checkup",
+          "startTime": "2025-10-13T11:00:00",
+          "endTime": "2025-10-13T11:30:00",
+          "status": "Confirmed"
+        },
+        {
+          "id": 302,
+          "patientName": "Ananya Mehta",
+          "type": "Consultation",
+          "startTime": "2025-10-15T16:00:00",
+          "endTime": "2025-10-15T16:30:00",
+          "status": "Pending"
+        },
+        {
+          "id": 303,
+          "patientName": "Ishaan Khanna",
+          "type": "Follow-up",
+          "startTime": "2025-10-17T13:00:00",
+          "endTime": "2025-10-17T13:30:00",
+          "status": "Confirmed"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Dr. Mark Wilson",
+      "specialty": "Orthopedics",
+      "image":"https://cdn-icons-png.flaticon.com/512/4140/4140070.png",
+      "workingHours": "8 AM - 2 PM",
+      "appointments": [
+        {
+          "id": 401,
+          "patientName": "Tanya Arora",
+          "type": "Checkup",
+          "startTime": "2025-10-13T08:30:00",
+          "endTime": "2025-10-13T09:00:00",
+          "status": "Confirmed"
+        },
+        {
+          "id": 402,
+          "patientName": "Deepak Gupta",
+          "type": "Consultation",
+          "startTime": "2025-10-14T11:00:00",
+          "endTime": "2025-10-14T11:30:00",
+          "status": "Completed"
+        },
+        {
+          "id": 403,
+          "patientName": "Harsh Goel",
+          "type": "Follow-up",
+          "startTime": "2025-10-16T12:00:00",
+          "endTime": "2025-10-16T12:30:00",
+          "status": "Pending"
+        }
+      ]
+    }
+  ]
+}

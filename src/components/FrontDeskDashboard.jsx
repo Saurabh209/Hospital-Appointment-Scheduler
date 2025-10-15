@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./FrontDeskDashboard.scss";
+import doctorData from '../data/hospitalData.json'
+
 
 const FrontDeskDashboard = () => {
   const [dateTime, setDateTime] = useState(new Date());
+
   useEffect(() => {
     const timer = setInterval(() => setDateTime(new Date()), 1000);
     return () => clearInterval(timer);
@@ -11,25 +14,26 @@ const FrontDeskDashboard = () => {
 
   const doctors = [
     {
-      name: "Dr. Asha Patel",
-      specialty: "Cardiologist",
+      name: "Dr. Sarah Chen",
+      specialty: "Cardiology",
       experience: "10 years",
       image: "https://cdn-icons-png.flaticon.com/512/4140/4140048.png",
     },
     {
-      name: "Dr. Vikram Singh",
-      specialty: "Orthopedic",
+      name: "Dr. John Smith",
+      specialty: "Dermatology",
       experience: "7 years",
       image: "https://cdn-icons-png.flaticon.com/512/921/921124.png",
     },
     {
-      name: "Dr. Neha Sharma",
-      specialty: "Dermatologist",
+      name: "Dr. Emily Davis",
+      specialty: "Pediatrics",
       experience: "5 years",
       image: "https://cdn-icons-png.flaticon.com/512/2922/2922561.png",
     },
   ];
 
+  console.log(doctorData?.doctors)
   return (
     <div className="dashboard">
       <div className="dashboard__header">
@@ -60,7 +64,7 @@ const FrontDeskDashboard = () => {
 
       <h2 className="dashboard__title">Available Doctors</h2>
       <div className="dashboard__cards">
-        {doctors.map((doc, index) => (
+        {doctorData?.doctors?.map((doc, index) => (
           <Link
             to={`/doctor/${encodeURIComponent(doc.name)}`}
             key={index}

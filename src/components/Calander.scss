@@ -31,6 +31,14 @@
     }
   }
 
+  .rbc-time-slot {
+    min-height: 60px;
+  }
+
+  .rbc-event {
+    overflow: visible !important; // ensure content is visible
+  }
+
   .add-event-form {
     display: flex;
     flex-wrap: wrap;

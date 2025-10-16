@@ -4,15 +4,19 @@ import data from "../data/hospitalData.json";
 import "./SingleDoctorAppointments.scss";
 import Calander from "./Calander";
 
-const SingleDoctorAppointments = () => {
+const SingleDoctorAppointments = (currentRole) => {
+  console.log(currentRole, "asjhdjasdasd")
   const { name } = useParams();
   const navigate = useNavigate();
   const [view, setView] = useState("week"); // "day" or "week"
   const [currentTime, setCurrentTime] = useState(new Date());
 
   // Find doctor from JSON by URL param
-
-  const decodedName = decodeURIComponent(name);
+  const parseSlug = (slug) => {
+    return slug.replace(/-/g, ' ');
+  };
+  console.log("name", name)
+  const decodedName = parseSlug(name);
   console.log(decodedName)
 
   const doctor = data.doctors.find(
@@ -52,7 +56,7 @@ const SingleDoctorAppointments = () => {
           </div>
           <div className="doctor-details">
             <h2>{doctor.name}</h2>
-            <div className="specialty">{doctor.specialty}</div>
+            <span className="specialty">{doctor.specialty}</span>
             <div className="working-hours">
               <strong>Working Hours:</strong> {doctor.workingHours}
             </div>
@@ -64,16 +68,31 @@ const SingleDoctorAppointments = () => {
               <span>Total Appointments: {doctor.appointments.length}</span>
               <span>Next Patient: {doctor.appointments[0]?.patientName || "N/A"}</span>
             </div>
-            <button className="back-btn" onClick={() => navigate("/")}>
-              ← Back to Dashboard
-            </button>
+
+            <div className="button-container">
+              <button className="back-btn" onClick={() => navigate("/")}>
+                ← Back to Dashboard
+              </button>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
           </div>
         </div>
 
 
+
       </div>
-      {console.log(doctor.name,"doctor")}
-      <Calander DctrName={doctor.name} appointments= {doctor.appointments} />
+
+      <Calander DctrName={doctor.name} appointments={doctor.appointments} />
 
 
 

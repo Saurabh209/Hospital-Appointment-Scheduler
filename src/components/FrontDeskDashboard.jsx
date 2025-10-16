@@ -7,32 +7,17 @@ import doctorData from '../data/hospitalData.json'
 const FrontDeskDashboard = () => {
   const [dateTime, setDateTime] = useState(new Date());
 
+
   useEffect(() => {
     const timer = setInterval(() => setDateTime(new Date()), 1000);
     return () => clearInterval(timer);
   }, []);
 
-  const doctors = [
-    {
-      name: "Dr. Sarah Chen",
-      specialty: "Cardiology",
-      experience: "10 years",
-      image: "https://cdn-icons-png.flaticon.com/512/4140/4140048.png",
-    },
-    {
-      name: "Dr. John Smith",
-      specialty: "Dermatology",
-      experience: "7 years",
-      image: "https://cdn-icons-png.flaticon.com/512/921/921124.png",
-    },
-    {
-      name: "Dr. Emily Davis",
-      specialty: "Pediatrics",
-      experience: "5 years",
-      image: "https://cdn-icons-png.flaticon.com/512/2922/2922561.png",
-    },
-  ];
-
+  // Url Space remover
+ const createSlug = (name) => {
+  return name.toLowerCase().replace(/\s+/g, '-');
+};
+ 
   console.log(doctorData?.doctors)
   return (
     <div className="dashboard">
@@ -66,14 +51,14 @@ const FrontDeskDashboard = () => {
       <div className="dashboard__cards">
         {doctorData?.doctors?.map((doc, index) => (
           <Link
-            to={`/doctor/${encodeURIComponent(doc.name)}`}
+            to={`/doctor/${createSlug(doc.name)}`}
             key={index}
             className="doctor-card"
           >
             <img src={doc.image} alt={doc.name} className="doctor-card__image" />
             <h3 className="doctor-card__name">{doc.name}</h3>
             <p className="doctor-card__specialty">{doc.specialty}</p>
-            <p className="doctor-card__exp">{doc.experience} experience</p>
+            {/* <p className="doctor-card__exp">{doc.experience} experience</p> */}
           </Link>
         ))}
       </div>
